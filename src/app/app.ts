@@ -1,4 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DESKTOP_CLIENT_TOKEN } from '../service/desktop-client';
 
@@ -6,6 +11,7 @@ import { DESKTOP_CLIENT_TOKEN } from '../service/desktop-client';
   selector: 'app-root',
   imports: [],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss'
 })
 export class App {
