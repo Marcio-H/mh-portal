@@ -11,13 +11,13 @@ import { DESKTOP_CLIENT_TOKEN } from '../service/desktop-client';
   selector: 'app-root',
   imports: [],
   templateUrl: './app.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
-  url = signal('mh-portal');
-
   private readonly desktopClient = inject(DESKTOP_CLIENT_TOKEN);
+
+  url = signal('mh-portal');
 
   resource = rxResource({
     params: () => ({ url: this.url(), body: { count: 1, name: 'Bob' } }),

@@ -1,13 +1,14 @@
-import { inject, Injectable, InjectionToken } from '@angular/core';
-import { defer, from, Observable } from 'rxjs';
-import { DesktopClient } from './desktop-client';
-import { IElectronAPI } from '../types/interface';
+import { inject, InjectionToken, Service } from '@angular/core';
+import { type Observable } from 'rxjs';
+import { defer, from } from 'rxjs';
+import { type DesktopClient } from './desktop-client';
+import { type IElectronAPI } from '../types/interface';
 
 export const ELECTRON_API_TOKEN = new InjectionToken<IElectronAPI>(
   'electronAPI'
 );
 
-@Injectable()
+@Service()
 export class ElectronClient implements DesktopClient {
   private readonly api = inject(ELECTRON_API_TOKEN);
 
