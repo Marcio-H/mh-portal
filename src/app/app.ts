@@ -11,7 +11,7 @@ import { DESKTOP_CLIENT_TOKEN } from '../service/desktop-client';
   selector: 'app-root',
   imports: [],
   templateUrl: './app.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.scss'
 })
 export class App {
