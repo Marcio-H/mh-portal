@@ -1,7 +1,13 @@
-import { EnvironmentProviders, InjectionToken, makeEnvironmentProviders, Provider, Type } from "@angular/core";
-import { Observable } from "rxjs";
-import { ELECTRON_API_TOKEN, ElectronClient } from "./electron-client";
-import { IElectronAPI } from "../types/interface";
+import {
+  EnvironmentProviders,
+  InjectionToken,
+  makeEnvironmentProviders,
+  Provider,
+  Type
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { ELECTRON_API_TOKEN, ElectronClient } from './electron-client';
+import { IElectronAPI } from '../types/interface';
 
 export interface DesktopClient {
   get<T>(url: string): Observable<T>;
@@ -11,21 +17,39 @@ export interface DesktopClient {
   delete<T>(url: string): Observable<T>;
 }
 
-export const DESKTOP_CLIENT_TOKEN = new InjectionToken<DesktopClient>('DesktopClient');
+export const DESKTOP_CLIENT_TOKEN = new InjectionToken<DesktopClient>(
+  'DesktopClient'
+);
 
 export type IElectronAPIProvider = () => Provider;
 
-export function withCustomElectronAPI(electronAPIFactory: { useFactory: () => IElectronAPI }): IElectronAPIProvider;
-export function withCustomElectronAPI(electronAPIClass: { useClass: Type<IElectronAPI> }): IElectronAPIProvider;
-export function withCustomElectronAPI(electronAPIProviderConfiguration: { useFactory: () => IElectronAPI } | { useClass: Type<IElectronAPI> }): IElectronAPIProvider {
-  return () => ({ provide: ELECTRON_API_TOKEN, ...electronAPIProviderConfiguration });
+export function withCustomElectronAPI(electronAPIFactory: {
+  useFactory: () => IElectronAPI;
+}): IElectronAPIProvider;
+export function withCustomElectronAPI(electronAPIClass: {
+  useClass: Type<IElectronAPI>;
+}): IElectronAPIProvider;
+export function withCustomElectronAPI(
+  electronAPIProviderConfiguration:
+    { useFactory: () => IElectronAPI } | { useClass: Type<IElectronAPI> }
+): IElectronAPIProvider {
+  return () => ({
+    provide: ELECTRON_API_TOKEN,
+    ...electronAPIProviderConfiguration
+  });
 }
 
 export function provideDesktopClient(): EnvironmentProviders;
-export function provideDesktopClient(customProvider: IElectronAPIProvider): EnvironmentProviders;
-export function provideDesktopClient(customProvider?: IElectronAPIProvider): EnvironmentProviders {
+export function provideDesktopClient(
+  customProvider: IElectronAPIProvider
+): EnvironmentProviders;
+export function provideDesktopClient(
+  customProvider?: IElectronAPIProvider
+): EnvironmentProviders {
   return makeEnvironmentProviders([
     { provide: DESKTOP_CLIENT_TOKEN, useClass: ElectronClient },
-    customProvider ? customProvider() : { provide: ELECTRON_API_TOKEN, useFactory: () => window.electron }
+    customProvider
+      ? customProvider()
+      : { provide: ELECTRON_API_TOKEN, useFactory: () => window.electron }
   ]);
 }

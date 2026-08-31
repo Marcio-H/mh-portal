@@ -1,14 +1,8 @@
 @if (resource.isLoading()) {
   <div class="loading-container">loading-container...</div>
-}
-
-@else if (resource.error()) {
-  <div class="error-container">
-    Error: {{ resource.error() }}
-  </div>
-}
-
-@else if (resource.value()) {
+} @else if (resource.error()) {
+  <div class="error-container">Error: {{ resource.error() }}</div>
+} @else if (resource.value()) {
   <div class="result-container">
     <p>Incoming result done!</p>
     <strong>Result: {{ resource.value() }}</strong>

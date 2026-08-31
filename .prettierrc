@@ -1,12 +1,13 @@
 {
-  "printWidth": 100,
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "printWidth": 80,
+  "semi": true,
+  "singleAttributePerLine": true,
   "singleQuote": true,
-  "overrides": [
-    {
-      "files": "*.html",
-      "options": {
-        "parser": "angular"
-      }
-    }
-  ]
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "objectWrap": "collapse",
+  "overrides": [{ "files": "*.html", "options": { "parser": "angular" } }]
 }
