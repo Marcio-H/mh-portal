@@ -2,6 +2,7 @@
 const eslint = require('@eslint/js');
 const angular = require('angular-eslint');
 const { defineConfig } = require('eslint/config');
+const prettier = require('eslint-config-prettier');
 const { importX } = require('eslint-plugin-import-x');
 const tseslint = require('typescript-eslint');
 
@@ -10,10 +11,11 @@ module.exports = defineConfig([
     files: ['**/*.ts'],
     languageOptions: { parserOptions: { projectService: true } },
     extends: [
+      angular.configs.tsRecommended,
       eslint.configs.recommended,
+      prettier,
       tseslint.configs.recommended,
-      tseslint.configs.stylistic,
-      angular.configs.tsRecommended
+      tseslint.configs.stylistic
     ],
     plugins: { 'import-x': importX },
     processor: angular.processInlineTemplates,
