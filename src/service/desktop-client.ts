@@ -1,12 +1,11 @@
-import {
-  type EnvironmentProviders,
-  type Provider,
-  type Type
-} from '@angular/core';
 import { InjectionToken, makeEnvironmentProviders } from '@angular/core';
-import { type Observable } from 'rxjs';
+
 import { ELECTRON_API_TOKEN, ElectronClient } from './electron-client';
-import { type IElectronAPI } from '../types/interface';
+
+import type { EnvironmentProviders, Provider, Type } from '@angular/core';
+import type { Observable } from 'rxjs';
+
+import type { IElectronAPI } from '../types/interface';
 
 export interface DesktopClient {
   get<T>(url: string): Observable<T>;

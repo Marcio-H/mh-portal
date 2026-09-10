@@ -1,10 +1,11 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   inject,
-  signal,
-  ChangeDetectionStrategy
+  signal
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+
 import { DESKTOP_CLIENT_TOKEN } from '../service/desktop-client';
 
 @Component({

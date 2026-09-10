@@ -1,8 +1,9 @@
 // @ts-check
 const eslint = require('@eslint/js');
-const { defineConfig } = require('eslint/config');
-const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
+const { defineConfig } = require('eslint/config');
+const { importX } = require('eslint-plugin-import-x');
+const tseslint = require('typescript-eslint');
 
 module.exports = defineConfig([
   {
@@ -14,6 +15,7 @@ module.exports = defineConfig([
       tseslint.configs.stylistic,
       angular.configs.tsRecommended
     ],
+    plugins: { 'import-x': importX },
     processor: angular.processInlineTemplates,
     rules: {
       '@angular-eslint/component-selector': [
@@ -51,13 +53,43 @@ module.exports = defineConfig([
       '@angular-eslint/use-lifecycle-interface': 'error',
       '@angular-eslint/use-pipe-transform-interface': 'error',
 
-      '@typescript-eslint/consistent-type-imports': ['error'],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'separate-type-imports',
+          disallowTypeAnnotations: true
+        }
+      ],
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' }
       ],
-      '@typescript-eslint/prefer-as-const': 'error'
+      '@typescript-eslint/prefer-as-const': 'error',
+
+      'import-x/order': [
+        'error',
+        {
+          alphabetize: {
+            caseInsensitive: true,
+            order: 'asc',
+            orderImportKind: 'asc'
+          },
+          groups: [
+            'builtin', // Módulos do Node.js (ex: fs, path)
+            'external', // Pacotes do npm (ex: react, lodash)
+            'internal', // Módulos internos (configurados via aliases)
+            ['parent', 'sibling'], // Arquivos de pastas superiores ou da mesma pasta
+            'index', // Arquivo index do diretório atual
+            'object', // Importações de objetos (ex: import _ = require('mod'))
+            'type' // Importações de tipos (TypeScript)
+          ],
+          named: { enabled: true, require: true, types: 'types-last' },
+          'newlines-between': 'always',
+          sortTypesGroup: true
+        }
+      ]
     }
   },
   {

@@ -1,8 +1,10 @@
 import { inject, InjectionToken, Service } from '@angular/core';
-import { type Observable } from 'rxjs';
 import { defer, from } from 'rxjs';
-import { type DesktopClient } from './desktop-client';
-import { type IElectronAPI } from '../types/interface';
+
+import type { Observable } from 'rxjs';
+
+import type { DesktopClient } from './desktop-client';
+import type { IElectronAPI } from '../types/interface';
 
 export const ELECTRON_API_TOKEN = new InjectionToken<IElectronAPI>(
   'electronAPI'
