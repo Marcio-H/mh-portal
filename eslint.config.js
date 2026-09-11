@@ -4,6 +4,7 @@ const angular = require('angular-eslint');
 const { defineConfig } = require('eslint/config');
 const prettier = require('eslint-config-prettier');
 const { importX } = require('eslint-plugin-import-x');
+const prettierPlugin = require('eslint-plugin-prettier/recommended');
 const tseslint = require('typescript-eslint');
 
 module.exports = defineConfig([
@@ -14,6 +15,7 @@ module.exports = defineConfig([
       angular.configs.tsRecommended,
       eslint.configs.recommended,
       prettier,
+      prettierPlugin,
       tseslint.configs.recommended,
       tseslint.configs.stylistic
     ],
@@ -98,7 +100,9 @@ module.exports = defineConfig([
     files: ['**/*.html'],
     extends: [
       angular.configs.templateRecommended,
-      angular.configs.templateAccessibility
+      angular.configs.templateAccessibility,
+      prettier,
+      prettierPlugin
     ],
     rules: {
       '@angular-eslint/template/attributes-order': [
