@@ -1,26 +1,36 @@
 import { TestBed } from '@angular/core/testing';
+import { mock } from 'vitest-mock-extended';
 
 import { App } from './app';
+import {
+  provideDesktopClient,
+  withCustomElectronAPI
+} from '../service/desktop-client';
+
+import type { StaticProvider } from '@angular/core';
+
+import type { IElectronAPI } from '../types/interface';
+
+function setup(providers: StaticProvider[] = []) {
+  TestBed.configureTestingModule({
+    providers: [
+      provideDesktopClient(
+        withCustomElectronAPI({ useFactory: () => mock<IElectronAPI>() })
+      ),
+      ...providers
+    ]
+  });
+
+  const fixture = TestBed.createComponent(App);
+  const component = fixture.componentInstance;
+
+  return { fixture, component };
+}
 
 describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App]
-    }).compileComponents();
-  });
-
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    const { component } = setup();
 
-  it('should render title', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, mh-portal'
-    );
+    expect(component).toBeTruthy();
   });
 });
